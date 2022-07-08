@@ -2,3 +2,38 @@
 title: "01-Enrichment"
 output: html_document
 ---
+
+
+Perform GO enrichment on the "top marker" genes for each partition. The background for all genes is in the "all genes" link. The marker genes (top 25, 40 and 80 genes) are also provided. For the marker genes, enrichment should be performed on each partition separately. In these files the partition is labeled "cell_group". The gene ID is listed in the column "gene_id".
+
+all genes: https://gannet.fish.washington.edu:5001/sharing/Ra8F2cH1C
+top25: https://gannet.fish.washington.edu:5001/sharing/4VIKzHDQG
+top40: https://gannet.fish.washington.edu:5001/sharing/uwgGa8aPD
+top80: https://gannet.fish.washington.edu:5001/sharing/L7YvQz2tk
+
+in ../data/ 
+
+
+```{r}
+library(dplyr)
+```
+
+
+```{r}
+top80 <- read.csv("../data/gast_topmarkers_annot_top80.txt", sep = "\t", header = TRUE)
+```
+
+
+```{r}
+head(top80)
+```
+
+
+Will try cell group 1 in Aquamine 
+
+Was able to get some info with L. giantea
+https://d.pr/i/GjDSk7
+
+![en](http://gannet.fish.washington.edu/seashell/snaps/AquaMine_List_Analysis_L._gigantea_orthologues_of_TOP_80-group01_1_2022-07-08_10-18-25.png)
+
+
