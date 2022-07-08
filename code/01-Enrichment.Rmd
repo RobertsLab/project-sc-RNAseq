@@ -36,4 +36,7 @@ https://d.pr/i/GjDSk7
 
 ![en](http://gannet.fish.washington.edu/seashell/snaps/AquaMine_List_Analysis_L._gigantea_orthologues_of_TOP_80-group01_1_2022-07-08_10-18-25.png)
 
+```{bash}
+head ../output/Lgig_top80_group01.tsv
+```
 
