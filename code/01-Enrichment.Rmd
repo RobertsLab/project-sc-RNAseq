@@ -15,7 +15,7 @@ in ../data/
 
 
 ```{r}
-library(dplyr)
+library(tidyverse)
 ```
 
 
@@ -38,5 +38,52 @@ https://d.pr/i/GjDSk7
 
 ```{bash}
 head ../output/Lgig_top80_group01.tsv
+```
+
+```{python}
+from __future__ import print_function
+from intermine.webservice import Service
+service = Service("https://aquamine.rnet.missouri.edu/aquamine/service", token = "YOUR-API-KEY")
+query = service.new_query("Gene")
+query.add_view(
+    "primaryIdentifier", "source", "biotype", "symbol", "name", "length",
+    "chromosome.primaryIdentifier", "chromosomeLocation.start",
+    "chromosomeLocation.end", "chromosomeLocation.strand", "organism.shortName",
+    "chromosome.assembly"
+)
+query.add_constraint("Gene", "IN", "L. gigantea orthologues of TOP_80-group01_3", code="A")
+
+for row in query.rows():
+    print(row["primaryIdentifier"], row["source"], row["biotype"], row["symbol"], row["name"], \
+        row["length"], row["chromosome.primaryIdentifier"], row["chromosomeLocation.start"], \
+        row["chromosomeLocation.end"], row["chromosomeLocation.strand"], row["organism.shortName"], \
+        row["chromosome.assembly"])
+```
+
+
+group 02
+
+![02](http://gannet.fish.washington.edu/seashell/snaps/AquaMine_List_Analysis_L._gigantea_orthologues_of_Top80_group02_1_2022-07-08_11-06-14.png)
+
+
+```{r}
+top25 <- read.csv("../data/gast_topmarkers_annot_top25.txt", sep = "\t", header = TRUE)
+```
+
+```{r}
+library(clipr)
+library(xclip)
+```
+
+```{r}
+head(top25)
+```
+
+```{r}
+t25.2 <- dplyr::filter(top25, cell_group == "2") %>% select("gene_id")
+```
+
+```{bash}
+xclip
 ```
 

@@ -1,0 +1,19 @@
+---
+title: "02-gastrula-exp"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+```
+```{r}
+gast <- read.delim("https://github.com/RobertsLab/project-sc-RNAseq/files/9162857/gastrula_geneBYcellsexpressed.txt", sep = "\t")
+```
+
+```{r}
+ggplot() +
+  geom_histogram(data = gast, aes(x = num_cells_expressed), fill = "blue", alpha = 0.2, bins = 50)
+```
+
+
+
