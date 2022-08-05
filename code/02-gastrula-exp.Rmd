@@ -16,4 +16,22 @@ ggplot() +
 ```
 
 
+```{r}
+gast$gp <- cut(gast$num_cells_expressed, breaks=3, include.lowest=FALSE)
+ggplot(gast, aes(gp, fill=gp)) + geom_bar()
+```
+Lets count based on number of cells expressed in ..
 
+```{r}
+nrow(filter(gast, num_cells_expressed <= 5))
+```
+
+```{r}
+nrow(filter(gast, num_cells_expressed > 5 , num_cells_expressed <= 1000))
+```
+
+
+
+```{r}
+nrow(filter(gast, num_cells_expressed > 1000 , num_cells_expressed < 20000))
+```
