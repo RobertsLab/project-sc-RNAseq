@@ -22,6 +22,16 @@ ggplot(gast, aes(gp, fill=gp)) + geom_bar()
 ```
 Lets count based on number of cells expressed in ..
 
+
+```{r}
+nrow(filter(gast, num_cells_expressed == 0))
+```
+
+```{r}
+nrow(filter(gast, num_cells_expressed > 5))
+```
+
+
 ```{r}
 nrow(filter(gast, num_cells_expressed <= 5))
 ```
@@ -29,9 +39,26 @@ nrow(filter(gast, num_cells_expressed <= 5))
 ```{r}
 nrow(filter(gast, num_cells_expressed > 5 , num_cells_expressed <= 1000))
 ```
-
+```{r}
+nrow(filter(gast, num_cells_expressed > 5 , num_cells_expressed <= 10))
+```
 
 
 ```{r}
 nrow(filter(gast, num_cells_expressed > 1000 , num_cells_expressed < 20000))
 ```
+
+```{r}
+nrow(filter(gast, num_cells_expressed > 16000))
+```
+
+```{r}
+hix <- filter(gast, num_cells_expressed > 16000) %>%
+  select(id)
+
+write_delim(hix, "../output/hix.tab")
+```
+
+
+
+
