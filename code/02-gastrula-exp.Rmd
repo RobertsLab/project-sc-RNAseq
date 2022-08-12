@@ -61,4 +61,10 @@ write_delim(hix, "../output/hix.tab")
 
 
 
+HOW MANY genes are labelled as uncharacterized
+
+```{r}
+filter(gast, gene_short_name == "unchar")
+```
+
 
