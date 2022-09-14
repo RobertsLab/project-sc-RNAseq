@@ -1,0 +1,83 @@
+---
+title: "05-library-comparison"
+output: html_document
+---
+
+```{r}
+gast <- read.delim("../data/gastrula_geneBYcellsexpressed.txt", sep = "\t")
+```
+
+
+```{r}
+bla <- read.delim("../data/CPbla_geneBYcellsexpressed.txt", sep = "\t")
+```
+
+```{r}
+lc <- full_join(bla, gast, by = "id")
+```
+
+```{r}
+lc %>%
+  filter(num_cells_expressed.x == 0, num_cells_expressed.y > 5)
+```
+
+
+```{r}
+nrow(lc %>%
+  filter(num_cells_expressed.y == 0, num_cells_expressed.x > 5))
+```
+
+
+
+
+
+
+
+
+#Expression
+
+```{r}
+blexp <- read.delim("../data/CPbla_mean_expression_byGene.csv", sep = ",") %>%
+  rename(LOCID = X, mean_UMI = Matrix..rowSums.assay.CPbla_cds..)
+
+```
+
+
+```{r}
+gaexp <- read.delim("../data/gast_mean_expression_byGene.csv", sep = ",") %>%
+  rename(LOCID = X, mean_UMI = Matrix..rowSums.assay.gast_cds..)
+
+```
+
+
+```{r}
+
+ec <- full_join(blexp, gaexp, by = "LOCID") %>%
+  rename(bl.UMI = mean_UMI.x, ga.UMI = mean_UMI.y)
+```
+
+
+```{r}
+ggplot(ec, aes(x = bl.UMI, y = ga.UMI)) +
+  geom_point(alpha = 0.6, size = 1) +
+  geom_smooth(method = "lm") +
+  geom_abline(size=1.0,colour="red") +
+  ylim(0,100000) +
+  xlim(0,100000)
+```
+
+
+
+```{r}
+ggplot(ec, aes(x = bl.UMI, y = ga.UMI)) +
+  geom_point(alpha = 0.6, size = 1) +
+  geom_smooth(method = "lm") +
+  geom_abline(size=1.0,colour="red") +
+  ylim(0,100000) +
+  xlim(0,100000)
+```
+
+
+
+
+
