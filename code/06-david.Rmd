@@ -3,26 +3,56 @@ title: "06-david"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+
+
+Perform GO enrichment on the "top marker" genes for each partition. The background for all genes is in the "all genes" link. The marker genes (top 25, 40 and 80 genes) are also provided. For the marker genes, enrichment should be performed on each partition separately. In these files the partition is labeled "cell_group". The gene ID is listed in the column "gene_id".
+
+all genes: https://gannet.fish.washington.edu:5001/sharing/Ra8F2cH1C
+top25: https://gannet.fish.washington.edu:5001/sharing/4VIKzHDQG
+top40: https://gannet.fish.washington.edu:5001/sharing/uwgGa8aPD
+top80: https://gannet.fish.washington.edu:5001/sharing/L7YvQz2tk
+
+
+---
+
+
+```{r}
+gall <- read.csv("../data/gast_allgenes_annot.txt", sep = '\t')
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+library(tidyverse)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+lacc <- read.csv("../data/LOC_Acc.tab", sep = ' ', header = FALSE)
+```
+
+
+```{r}
+blast <- read.csv("../data/CgR-blastp-sp.tab", sep = '\t', header = FALSE)
+```
+
+
+```{r}
+left_join(gall, lacc, by =c("id" = "V1")) %>%
+  left_join(blast, by = c("V2" = "V1")) %>%
+  write_delim("../output/gast-all-genes-blastsp.tab", delim = '\t')
+```
+
+
+
+```{r}
+test <- read.csv("../output/gast-25-blastsp.tab", sep = '\t', header = TRUE)
+
+```
+
+
+- 
+
